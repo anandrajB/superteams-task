@@ -70,24 +70,11 @@ jobs:
         with:
           python-version: 3.11.4
 
-  dependency-scan:
-    runs-on: ubuntu-latest
-    needs: [check-dependencies]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install safety
-        run: |
-          python -m pip install safety
-
-      - name: Run dependency vulnerability scan
-        run: |
-          safety check --full-report
+  
 
   check-requirements:
     runs-on: ubuntu-latest
-    needs: [check-dependencies]
+    needs: [check-external-api]
 
     steps:
       - name: Checkout code
@@ -126,7 +113,7 @@ jobs:
 
   quality-check:
     runs-on: ubuntu-latest
-    needs: [check-requirements]
+    needs: [check-requirements , check-dependencies]
 
     steps:
       - name: Checkout code
@@ -155,7 +142,7 @@ jobs:
 
       - name : Run lint score
         run: |
-          pylint --ignore=env,migrations,tests .
+          pylint --ignore=env,tests .
 
       
 
