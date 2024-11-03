@@ -5,7 +5,7 @@
 # Superteams fastapi task
 
 
-[![Github actions passing](https://img.shields.io/badge/CI%20Github%20Actions%20-passing-brightgreen)](https://github.com/venzo-tech/scfbackend/actions/workflows/merge-beta.yaml)
+[![Github actions passing](https://img.shields.io/badge/CI%20Github%20Actions%20-passing-brightgreen)](https://github.com/anandrajB/superteams-task/actions)
 
 [![Deep scan](https://img.shields.io/badge/deepscan-good-green)](https://deepscan.io/dashboard/)
 [![Monitoring](https://img.shields.io/badge/monitoring-ready-blue)](https://uptime.betterstack.com/team/126444/monitors/2745793)

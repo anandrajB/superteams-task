@@ -28,10 +28,10 @@ async def root():
 
 class GenerationRequest(BaseModel):
     prompt: str
-    negative_prompt: Optional[str] = None
-    num_outputs: Optional[int] = 1
-    num_inference_steps: Optional[int] = 50
-    guidance_scale: Optional[float] = 7.5
+    # negative_prompt: Optional[str] = None
+    # num_outputs: Optional[int] = 1
+    # num_inference_steps: Optional[int] = 50
+    # guidance_scale: Optional[float] = 7.5
 
 
 class FineTuneRequest(BaseModel):
@@ -44,23 +44,26 @@ class FineTuneRequest(BaseModel):
 
 @app.post("/generate")
 async def generate_image(request: GenerationRequest):
-    try:
-        output = replicate.run(
-            "bytedance/sdxl-lightning-4step:5599ed30703defd1d160a25a63321b4dec97101d98b4674bcc56e41f62f35637",
-            input={
-                "width": 1024,
-                "height": 1024,
-                "prompt": "self-portrait of a woman, lightning in the background",
-                "scheduler": "K_EULER",
-                "num_outputs": 1,
-                "guidance_scale": 0,
-                "negative_prompt": "worst quality, low quality",
-                "num_inference_steps": 4,
-            },
-        )
-        return {"status": "success", "images": output}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    print(request.prompt)
+    output = replicate.run(
+        os.environ.get("REPLICATE_IMAGE_GENERATION_MODEL"),
+        input={
+            "width": 1024,
+            "height": 1024,
+            "prompt": request.prompt,
+            "scheduler": "K_EULER",
+            "num_outputs": 1,
+            "guidance_scale": 0,
+            "negative_prompt": "worst quality, low quality",
+            "num_inference_steps": 4,
+        },
+    )
+    with open("output.png", "wb") as f:
+        f.write(output[0].read())
+    for idx, file_output in enumerate(output):
+        with open(f"output_{idx}.png", "wb") as f:
+            f.write(file_output.read())
+    return {"status": "success"}
 
 
 @app.post("/fine-tune")
@@ -69,18 +72,20 @@ async def fine_tune_model(
 ):
     try:
         # Save uploaded images temporarily
-        image_paths = []
-        for image in images:
-            file_location = f"temp/{image.filename}"
-            with open(file_location, "wb+") as file_object:
-                file_object.write(await image.read())
-            image_paths.append(file_location)
+        # image_paths = []
+        # for image in images:
+        #     file_location = f"temp/{image.filename}"
+        #     with open(file_location, "wb+") as file_object:
+        #         file_object.write(await image.read())
+        #     image_paths.append(file_location)
 
         # Start fine-tuning process
+        with open("training.zip", "wb") as f:
+            input_file = f.read()
         training = replicate.training.create(
             version="stability-ai/sdxl:a00d0b7dcbb9c3fbb34ba87d2d5b46c56969c84a628bf778a7fdaec30b1b99c5",
             input={
-                "input_images": image_paths,
+                "input_images": input_file,
                 "instance_prompt": request.instance_prompt,
                 "class_prompt": request.class_prompt,
                 "num_class_images": request.num_class_images,
