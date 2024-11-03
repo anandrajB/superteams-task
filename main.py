@@ -1,10 +1,11 @@
-from fastapi import FastAPI, UploadFile, File
+import os
+from typing import List, Optional
+
+import replicate
+from fastapi import FastAPI, File, UploadFile
+from fastapi.exceptions import HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional, List
-import replicate
-import os
-from fastapi.exceptions import HTTPException
 
 app = FastAPI(title="Superteams task routes")
 

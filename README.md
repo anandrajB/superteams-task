@@ -1,9 +1,14 @@
-
-
 ![Logo](https://cdn.prod.website-files.com/640a0e9bc8266025f05af760/64b128cb47630984c4b9baef_superteams_logo_dark.png)
 
 
+
 # Superteams fastapi task
+
+
+[![Github actions passing](https://img.shields.io/badge/CI%20Github%20Actions%20-passing-brightgreen)](https://github.com/venzo-tech/scfbackend/actions/workflows/merge-beta.yaml)
+
+[![Deep scan](https://img.shields.io/badge/deepscan-good-green)](https://deepscan.io/dashboard/)
+[![Monitoring](https://img.shields.io/badge/monitoring-ready-blue)](https://uptime.betterstack.com/team/126444/monitors/2745793)
 
 
 
