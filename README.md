@@ -53,3 +53,6 @@
 - [API's](https://api.tfmasters.com/)
 - [ADMIN PANEL](https://console.tfmasters.com/)
 
+
+
+![CI/CD](ci.png)
