@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Superteams Task</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="h-full bg-black font-sans">
     
-<div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12">
+<div class="relative flex min-h-screen flex-col justify-between overflow-hidden bg-gray-50 py-6 sm:py-12">
     
-    <div class="absolute inset-0 bg-[url('/img/grid.svg')] bg-center"></div>
+  
     <div class="relative bg-black px-6 w-4/6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-full sm:rounded-lg sm:px-10">
       <div class="mx-auto max-w-full">
         <div class="flex flex-row justify-center">
@@ -33,10 +31,33 @@
         </button>
 
 
+        <img class="h-auto max-w-full" src="{{ url_for('static', path='output.png') }}" alt="image description">
+
+
         </div>
       </div>
     </div>
-  </div>
+    
+    <footer class="bg-white rounded-lg shadow m-4 dark:bg-black">
+      <div class="w-full items-center mx-auto max-w-screen-xl p-4 md:flex justify-center">
+        <ul class="flex items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+          <li>
+              <a href="https://www.google.com" class="hover:underline me-4 md:me-6">API Documentation</a>
+          </li>
+          <li>
+              <a href="https://github.com/anandrajB/superteams-task" class="hover:underline me-4 md:me-6">GitHub</a>
+          </li>
+          <li>
+            <a href="/docs" class="hover:underline me-4 md:me-6">Docs</a>
+        </li>
+          
+      </ul>
+      
+      </div>
+  </footer>
+  
+    
+</div>
   
 </body>
 </html>
