@@ -27,7 +27,7 @@ jobs:
           import requests
           import sys
 
-          API_URL = "https://api.first.org/data/v1/countries"
+          API_URL = "https://replicatestatus.com/"
 
           response = requests.get(API_URL)
 
@@ -35,13 +35,7 @@ jobs:
               print(f"API request failed with status code: {response.status_code}")
               sys.exit(1)
 
-          data = response.json()
-
-          if 'data' not in data or not data['data']:
-              print("API response does not contain expected data")
-              sys.exit(1)
-
-          print("API check successful")
+          print("Replicate working successful")
         shell: python
 
       - name: Notify on failure
@@ -54,7 +48,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.name,
               title: 'API Check Failed',
-              body: 'The daily API check has failed. Please investigate.'
+              body: 'The replicate API check has failed. Please investigate.'
             })
 
   check-dependencies:

@@ -1,23 +1,17 @@
 import contextlib
 import os
-import tempfile
-from pathlib import Path
 from typing import List, Optional
-from zipfile import ZipFile
 
 from fastapi import FastAPI, Request, UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import (
-    HTMLResponse,
-    JSONResponse,
-)
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from .replicate import ReplicateApieHandler
-from .schemas import FineTuneRequest, GenerationRequest
+from .schemas import GenerationRequest
 from .utils import ReplicateUtilsEnum, ResponseStatusEnum, create_zip_from_files
 
 app = FastAPI(title="Superteams task routes")
@@ -49,10 +43,6 @@ async def home(request: Request):
 )
 async def replicate_generate_images(request: GenerationRequest):
     with contextlib.suppress(Exception):
-        try:
-            os.remove("static/output.png")
-        except:
-            pass
         ReplicateApieHandler(request_type=ReplicateUtilsEnum.GENERATE).generate_images(
             input_prompt=request.prompt
         )
@@ -70,18 +60,26 @@ async def replicate_generate_images(request: GenerationRequest):
     response_description="triggers the replicate fine tune trainings and response with the training id ",
 )
 async def fine_tune_model(
-    # files: Optional[List[UploadFile]] = None,
-    # zip_file: Optional[UploadFile] = None,
+    files: Optional[List[UploadFile]] = None,
 ):
-    # try:
-    # if files is not None:
-    #     await create_zip_from_files(files)
 
-    training = ReplicateApieHandler(request_type=ReplicateUtilsEnum.FINETUNE).fine_tune(
-        input_file="https://tfm-storage.blr1.cdn.digitaloceanspaces.com/base-training.zip"
+    sample_fine_tune_dataset = (
+        "https://tfm-storage.blr1.cdn.digitaloceanspaces.com/base-training.zip"
     )
-    training = None
-    return {"status": "success", "training_id": training}
+    try:
+        if files is not None:
+            await create_zip_from_files(files)
 
-    # except Exception as e:
-    #     raise HTTPException(status_code=500, detail=str(e))
+        training = ReplicateApieHandler(
+            request_type=ReplicateUtilsEnum.FINETUNE
+        ).fine_tune(
+            input_file="https://tfm-storage.blr1.cdn.digitaloceanspaces.com/base-training.zip"
+        )
+        return {"status": "success", "training_id": training.id}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
+    finally:
+        with contextlib.suppress(Exception):
+            os.remove("files.zip")

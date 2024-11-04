@@ -6,58 +6,125 @@
     <title>Superteams Task</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .loader {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        .helptext{
+          color : white;
+          display : none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body class="h-full bg-black font-sans">
-    
-<div class="relative flex min-h-screen flex-col justify-between overflow-hidden bg-gray-50 py-6 sm:py-12">
-    
-  
-    <div class="relative bg-black px-6 w-4/6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-full sm:rounded-lg sm:px-10">
-      <div class="mx-auto max-w-full">
-        <div class="flex flex-row justify-center">
-            <img src="https://cdn.prod.website-files.com/640a0e9bc8266025f05af760/64b128cb47630984c4b9baef_superteams_logo_dark.png" class="h-10" alt="Superteams logo" />
+    <div class="relative flex min-h-screen flex-col justify-between overflow-hidden bg-gray-50 py-6 sm:py-12">
+        <div class="relative bg-black px-6 w-4/6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-full sm:rounded-lg sm:px-10">
+            <div class="mx-auto max-w-full">
+                <div class="flex flex-row justify-center">
+                    <img src="https://cdn.prod.website-files.com/640a0e9bc8266025f05af760/64b128cb47630984c4b9baef_superteams_logo_dark.png" class="h-10" alt="Superteams logo" />
+                </div>
+                
+                <div class="divide-y mt-10 divide-gray-300/50">
+                    <form id="promptForm" method="POST">
+                        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your prompt here</label>
+                        <textarea 
+                            id="message" 
+                            name="message"
+                            rows="4" 
+                            class="block mt-3 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                            placeholder="Bike rider riding a motorcycle..."
+                            required
+                        ></textarea>
+                        
+                        <button
+                            type="submit"
+                            id="submitButton"
+                            class="inline-flex flex justify-end mt-5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                            Submit
+                        </button>
+                    </form>
+
+                    <div id="loader" class="loader"> </div>
+                    <p class = "helptext" id = "helptext"> this takes a few seconds to load the image , hold on !! </p>
+                    <div id="imageContainer" class="mt-5" style="display: none;">
+                        <img id="outputImage" class="h-auto max-w-full" src="{{ url_for('static', path='output.png') }}" alt="Generated image">
+                    </div>
+                </div>
+            </div>
         </div>
         
-        <div class="divide-y mt-10 divide-gray-300/50">
-          
-          <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your prompt here</label>
-          <textarea id="message" rows="4" class="block mt-3 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Bike rider riding a motorcycle..."></textarea>
-          
-        <button
-            type="submit"
-            class="inline-flex flex justify-end mt-5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-            Submit
-        </button>
-
-
-        <img class="h-auto max-w-full" src="{{ url_for('static', path='output.png') }}" alt="image description">
-
-
-        </div>
-      </div>
+        <footer class="bg-white rounded-lg shadow m-4 dark:bg-black">
+            <div class="w-full items-center mx-auto max-w-screen-xl p-4 md:flex justify-center">
+                <ul class="flex items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+                    <li>
+                        <a href="https://www.google.com" class="hover:underline me-4 md:me-6">API Documentation</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/anandrajB/superteams-task" class="hover:underline me-4 md:me-6">GitHub</a>
+                    </li>
+                    <li>
+                        <a href="/docs" class="hover:underline me-4 md:me-6">Docs</a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
     </div>
-    
-    <footer class="bg-white rounded-lg shadow m-4 dark:bg-black">
-      <div class="w-full items-center mx-auto max-w-screen-xl p-4 md:flex justify-center">
-        <ul class="flex items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-          <li>
-              <a href="https://www.google.com" class="hover:underline me-4 md:me-6">API Documentation</a>
-          </li>
-          <li>
-              <a href="https://github.com/anandrajB/superteams-task" class="hover:underline me-4 md:me-6">GitHub</a>
-          </li>
-          <li>
-            <a href="/docs" class="hover:underline me-4 md:me-6">Docs</a>
-        </li>
-          
-      </ul>
-      
-      </div>
-  </footer>
-  
-    
-</div>
-  
+
+    <script>
+        document.getElementById('promptForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitButton = document.getElementById('submitButton');
+            const loader = document.getElementById('loader');
+            const imageContainer = document.getElementById('imageContainer');
+            const outputImage = document.getElementById('outputImage');
+            const helptext = document.getElementById('helptext');
+            submitButton.disabled = true;
+            loader.style.display = 'block';
+            imageContainer.style.display = 'none';
+            helptext.style.display = 'block';
+            try {
+                const formData = new FormData(this);
+                const promptText = document.getElementById('message').value;
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "prompt": promptText
+                    })
+                });
+                
+                if (response.ok) {
+                    outputImage.src = `{{ url_for('static', path='output.png') }}?t=${new Date().getTime()}`;
+                    imageContainer.style.display = 'block';
+                } else {
+                    alert('An error occurred while generating the image.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while submitting the form.');
+            } finally {
+                submitButton.disabled = false;
+                loader.style.display = 'none';
+                helptext.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
