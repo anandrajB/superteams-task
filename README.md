@@ -34,9 +34,9 @@
 
 ```
 - pip install -r requirements.txt
-- fastapi dev (for Development)
-- fastapi run (for Production)
-- uvicorn main:app (with Uvicorn for cloud deploy)
+- fastapi dev app/main.py (for Development)
+- fastapi run app/main.py (for Production)
+- uvicorn app.main:app (with Uvicorn for cloud deploy)
 - pytest
 ```
  
