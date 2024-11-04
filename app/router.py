@@ -10,16 +10,17 @@ from fastapi.responses import JSONResponse
 
 from .replicate import ReplicateApieHandler
 from .schemas import FineTuneRequest, GenerationRequest
-from .utils import ReplicateUtilsEnum, ResponseStatusEnum, create_zip_from_files
+from .enum import ReplicateUtilsEnum, ResponseStatusEnum
+from .utils import create_zip_from_files
 
-router = APIRouter(
+replicate_router = APIRouter(
     prefix="",
     tags=["replicate-api"],
     responses={404: {"description": "replicate api image generation and fine tune "}},
 )
 
 
-@router.post(
+@replicate_router.post(
     "/generate/",
     response_model=GenerationRequest,
     summary="Generate images with replicate API",
@@ -42,7 +43,7 @@ async def replicate_generate_images(request: GenerationRequest):
     raise HTTPException(status_code=404, detail=ResponseStatusEnum.SWR.value)
 
 
-@router.post(
+@replicate_router.post(
     "/fine-tune/",
     summary="Upload your images / zip files to fine tune , in the request either you can give the zip file or upload your own images to fine tune",
     response_description="triggers the replicate fine tune trainings and response with the training id ",

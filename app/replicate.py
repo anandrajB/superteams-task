@@ -5,7 +5,7 @@ from typing import Dict, Literal
 import replicate
 from pydantic.dataclasses import dataclass
 
-from app.utils import ReplicateUtilsEnum
+from app.enum import ReplicateUtilsEnum
 from .schemas import GenerationRequest, FineTuneRequest
 
 

@@ -1,4 +1,3 @@
-
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
@@ -14,7 +13,7 @@ origins = ["*"]
 def create_app():
     app = FastAPI(title="Superteams task routes")
 
-    app.include_router(router.router, prefix="/v1")
+    app.include_router(router.replicate_router, prefix="/v1")
 
     app.add_middleware(
         CORSMiddleware,

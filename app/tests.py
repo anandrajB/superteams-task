@@ -7,7 +7,7 @@ client = TestClient(app)
 
 def test_replicate_image_generation():
     response = client.post(
-        "/generate/",
+        "/v1/generate/",
         json={
             "apply_watermark": True,
             "guidance_scale": 7.5,
@@ -27,7 +27,7 @@ def test_replicate_image_generation():
 
 def test_replicate_fine_tune_():
     response = client.post(
-        "/fine-tune/",
+        "/v2/fine-tune/",
         json={
             "caption_prefix": "a photo of TOK",
             "file_link": "https://tfm-storage.blr1.cdn.digitaloceanspaces.com/base-training.zip",

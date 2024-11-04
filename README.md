@@ -44,14 +44,13 @@
 
 [Swagger Documentation](https://superteams-task.onrender.com/docs)
 
-[Postman Collection]()
+[Postman Collection](https://documenter.getpostman.com/view/11858287/2sAY4xCNNw)
 
 
 ## LINKS 
 
-- [HOME](http://127.0.0.1:8000/)
-- [API's](https://api.tfmasters.com/)
-- [ADMIN PANEL](https://console.tfmasters.com/)
+- [HOME](https://superteams-task.onrender.com/)
+- [API's](https://superteams-task.onrender.com/docs/)
 
 
 
