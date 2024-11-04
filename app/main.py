@@ -10,8 +10,29 @@ templates = Jinja2Templates(directory="templates", extensions=["jinja2.ext.do"])
 origins = ["*"]
 
 
+description = """
+task in fastapi for image generation and fine tune. 🚀
+
+## replicate-api
+
+You will be able to:
+
+* **generate images** 
+* **fine tune**
+"""
+
+
 def create_app():
-    app = FastAPI(title="Superteams task routes")
+    app = FastAPI(
+        title="Superteams task routes",
+        description=description,
+        summary="Replicate Image generation API's",
+        version="1.0.0",
+        contact={
+            "name": "Anand Raj",
+            "email": "anand98.ar@gmail.com",
+        },
+    )
 
     app.include_router(router.replicate_router, prefix="/v1")
 

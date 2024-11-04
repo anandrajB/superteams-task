@@ -44,6 +44,8 @@
 
 [Swagger Documentation](https://superteams-task.onrender.com/docs)
 
+[Redoc Documentation](https://superteams-task.onrender.com/redoc)
+
 [Postman Collection](https://documenter.getpostman.com/view/11858287/2sAY4xCNNw)
 
 
