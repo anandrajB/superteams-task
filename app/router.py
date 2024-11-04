@@ -53,6 +53,7 @@ async def fine_tune_model(
 ):
 
     try:
+        """creates a zip based on the user uploadded image"""
         if files is not None:
             await create_zip_from_files(files)
 
