@@ -42,7 +42,7 @@
  
 ## Documentation
 
-[Postman Documentation]()
+[Swagger Documentation](https://superteams-task.onrender.com/docs)
 
 [Postman Collection]()
 

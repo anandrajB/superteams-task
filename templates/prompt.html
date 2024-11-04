@@ -100,13 +100,24 @@
             try {
                 const formData = new FormData(this);
                 const promptText = document.getElementById('message').value;
-                const response = await fetch('/generate', {
+                const response = await fetch('/v1/generate/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        "prompt": promptText
+                        "apply_watermark": true,
+                        "guidance_scale": 7.5,
+                        "height": 1024,
+                        "high_noise_frac": 0.8,
+                        "lora_scale": 0.6,
+                        "negative_prompt": "",
+                        "num_inference_steps": 50,
+                        "num_outputs": 1,
+                        "prompt": promptText,
+                        "prompt_strength": 0.8,
+                        "width": 1024
+                          
                     })
                 });
                 

@@ -24,6 +24,7 @@ class ResponseStatusEnum(BaseEnum):
     FAILURE = "FAILURE"
     SWR = "Something went wrong"
     UNAUTHORIZED = "UNAUTHORIZED"
+    IGS = "Image Generated Successfully"
 
 
 async def create_zip_from_files(files):
